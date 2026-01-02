@@ -70,7 +70,8 @@ function displayQuiz(quiz) {
 
     quiz.forEach((q, i) => {
         const div = document.createElement("div");
-        div.style.marginBottom = "20px";
+        div.className = "quiz-question";
+
 
         const questionEl = document.createElement("h4");
         questionEl.innerText = `Q${i + 1}: ${q.question}`;
@@ -106,5 +107,16 @@ function calculateScore() {
     currentQuiz.forEach((q, i) => {
         if (userAnswers[i].toLowerCase() === q.answer.toLowerCase()) score++;
     });
-    alert(`You scored ${score} out of ${currentQuiz.length}`);
+
+    const container = document.getElementById("quizOutput");
+    const scoreEl = document.getElementById("score");
+    if (!scoreEl) {
+        const newScoreEl = document.createElement("div");
+        newScoreEl.id = "score";
+        newScoreEl.innerText = `You scored ${score} out of ${currentQuiz.length}`;
+        container.appendChild(newScoreEl);
+    } else {
+        scoreEl.innerText = `You scored ${score} out of ${currentQuiz.length}`;
+    }
 }
+

@@ -1,30 +1,35 @@
-/* General page styling */
-body {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 20px auto;
+/* Quiz container */
+#quizOutput {
+    margin-top: 30px;
     padding: 20px;
-    background-color: #f8f8f8;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
 }
 
-/* Headings */
-h1, h3 {
-    text-align: center;
-    color: #333;
+/* Each question block */
+.quiz-question {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fdfdfd;
 }
 
-/* Input fields */
-input[type="text"], input[type="file"] {
+/* Options */
+.quiz-question label {
     display: block;
-    margin: 10px auto;
-    padding: 10px;
-    width: 80%;
-    font-size: 16px;
+    padding: 5px 0;
+    cursor: pointer;
 }
 
-/* Buttons */
+.quiz-question input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* Submit and buttons */
 button {
-    display: block;
+    display: inline-block;
     margin: 10px auto;
     padding: 10px 20px;
     font-size: 16px;
@@ -39,13 +44,11 @@ button:hover {
     background-color: #45a049;
 }
 
-/* Quiz output area */
-#quizOutput {
-    margin-top: 30px;
-    padding: 20px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    min-height: 150px;
-    white-space: pre-wrap; /* Keeps formatting for AI text */
+/* Score display */
+#score {
+    font-size: 20px;
+    font-weight: bold;
+    color: #222;
+    text-align: center;
+    margin-top: 20px;
 }
