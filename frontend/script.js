@@ -37,13 +37,6 @@ async function generateQuizFromPDF() {
 
 // Parse AI text into structured quiz
 function parseQuiz(text) {
-    // Expecting format:
-    // Q1: question
-    // a) option
-    // b) option
-    // c) option
-    // d) option
-    // Answer: x
     const lines = text.split("\n").filter(l => l.trim() !== "");
     const quiz = [];
     let q = {};
@@ -51,7 +44,7 @@ function parseQuiz(text) {
         if (line.match(/^Q\d+:/)) {
             if (Object.keys(q).length) quiz.push(q);
             q = {question: line.replace(/^Q\d+:\s*/, ""), options: [], answer: ""};
-        } else if (line.match(/^[a-d]\)/)) {
+        } else if (line.match(/^[a-d]\)/i)) {
             q.options.push(line);
         } else if (line.toLowerCase().includes("answer:")) {
             q.answer = line.split(":")[1].trim();
@@ -62,6 +55,7 @@ function parseQuiz(text) {
     userAnswers = Array(quiz.length).fill("");
     return quiz;
 }
+
 
 // Display quiz on page
 function displayQuiz(quiz) {
@@ -104,19 +98,17 @@ function displayQuiz(quiz) {
 // Calculate score
 function calculateScore() {
     let score = 0;
-    currentQuiz.forEach((q, i) => {
-        if (userAnswers[i].toLowerCase() === q.answer.toLowerCase()) score++;
+    currentQuiz.forEach((q,i) => {
+        if(userAnswers[i].toLowerCase() === q.answer.toLowerCase()) score++;
     });
-
     const container = document.getElementById("quizOutput");
-    const scoreEl = document.getElementById("score");
-    if (!scoreEl) {
-        const newScoreEl = document.createElement("div");
-        newScoreEl.id = "score";
-        newScoreEl.innerText = `You scored ${score} out of ${currentQuiz.length}`;
-        container.appendChild(newScoreEl);
-    } else {
-        scoreEl.innerText = `You scored ${score} out of ${currentQuiz.length}`;
+    let scoreEl = document.getElementById("score");
+    if(!scoreEl){
+        scoreEl = document.createElement("div");
+        scoreEl.id = "score";
+        container.appendChild(scoreEl);
     }
+    scoreEl.innerText = `You scored ${score} / ${currentQuiz.length}`;
 }
+
 
